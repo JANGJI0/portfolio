@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import "../styles/Projects.css";
 
 const assetPath = (path) => `${import.meta.env.BASE_URL}${path}`;
+const appPath = (path) => `${import.meta.env.BASE_URL.replace(/\/$/, "")}${path}`;
 
 function Projects({ onNavigate }) {
 
@@ -17,12 +18,22 @@ function Projects({ onNavigate }) {
       id: 1,
       title: "Ssemlog",
       description: "소비관리를 위한 어플",
-      image: assetPath("images/sideproject.png"),
-      skills: ["Spring Boot", "MyBatis"],
+      screens: [
+        assetPath("images/ssemlog-login.png"),
+        assetPath("images/ssemlog-home.png"),
+        assetPath("images/ssemlog-expense.png"),
+        assetPath("images/ssemlog-budget.png"),
+      ],
+      skills: ["Java 21", "Spring Boot", "Spring Security", "JPA", "PostgreSQL", "JWT", "OAuth2", "Supabase Storage"],
       features: [
         "소비 내역 등록·수정·삭제와 영수증 이미지·PDF 첨부",
         "월별 목표액 대비 지출 현황과 초과 금액 요약",
         "이메일·카카오 로그인 및 JWT 토큰 기반 인증",
+      ],
+      contributions: [
+        "리프레시 토큰 저장·회전·로그아웃 흐름과 단위 테스트 구현",
+        "카카오 연동 사용자의 프로필 재인증과 계정 연결 흐름 구현",
+        "월별 예산 계획·소비 분석 API, DB 마이그레이션과 테스트 추가",
       ],
       link: "/projects/ssemlog",
       github: "https://github.com/Side-projectTeam/sseumlog-backend",
@@ -32,11 +43,17 @@ function Projects({ onNavigate }) {
       title: "Broadcast Groupware",
       description: "방송국 내부 업무 효율화를 위한 그룹웨어",
       image: assetPath("images/finalproject.png"),
-      skills: ["Spring Boot", "MyBatis", "WebSocket"],
+      skills: ["Java", "Spring Boot", "JSP", "MyBatis", "WebSocket"],
       features: [
         "캘린더와 시설·장비 예약을 한 화면에서 관리",
         "근태·게시판·전자결재를 역할별 권한으로 제공",
         "WebSocket 기반 실시간 사내 채팅",
+      ],
+      contributions: [
+        "Spring Security 기반 로그인과 역할별 접근 제어",
+        "사원번호·생년월일 검증 후 임시 비밀번호 이메일 발송 구현",
+        "WebSocket(STOMP) 기반 개인·그룹 채팅, 읽음 처리와 수신 알림 구현",
+        "근태·휴가·결재·예약·공지·방송 편성 현황을 모아 보여주는 메인 화면 API 구성",
       ],
       link: "/projects/broadcast-groupware",
       github: "https://github.com/kjojk91/Broadcast-Groupware",
@@ -47,11 +64,17 @@ function Projects({ onNavigate }) {
       title: "LMS",
       description: "학생과 강사를 위한 학습 관리 시스템",
       image: assetPath("images/semiproject.png"),
-      skills: ["Java", "JSP", "MyBatis"],
+      skills: ["Java", "Spring Boot", "JSP", "MyBatis"],
       features: [
         "강의 개설과 수강 신청을 역할별로 관리",
         "출결·시험·성적을 통합 관리",
         "게시판·자료실·Q&A와 학사 일정 캘린더 제공",
+      ],
+      contributions: [
+        "관리자·강사·학생 역할을 구분한 로그인과 세션 유지 흐름 구현",
+        "공지사항과 Q&A의 역할별 작성·수정·조회 권한, 비공개 글 접근 규칙 구현",
+        "자료실 다중 파일 업로드와 상세 화면 파일 미리보기 기능 구현",
+        "공통 세션 값·Model 속성 이름·JSP 화면 경로를 맞춰 데이터 전달 형식을 조율",
       ],
       link: "/projects/lms",
       github: "https://github.com/semi-lms/lms",
@@ -229,10 +252,13 @@ useEffect(() => {
 
               {/* 프로젝트 대표 이미지 */}
               <div className="project-image">
-                <img
-                  src={project.image}
-                  alt={`${project.title} 대표 이미지`}
-                />
+                {project.screens ? (
+                  <div className="project-screen-preview" aria-label={`${project.title} 주요 화면`}>
+                    {project.screens.map((screen) => <img src={screen} alt="" key={screen} />)}
+                  </div>
+                ) : (
+                  <img src={project.image} alt={`${project.title} 대표 이미지`} />
+                )}
               </div>
 
               {/* 카드 내부 설명 */}
@@ -298,9 +324,18 @@ useEffect(() => {
                   </ul>
                 </div>
 
+                {project.contributions && <div className="project-contributions">
+                  <p>주요 기여</p>
+                  <ul>
+                    {project.contributions.map((contribution) => (
+                      <li key={contribution}>{contribution}</li>
+                    ))}
+                  </ul>
+                </div>}
+
                 {/* 프로젝트 상세페이지 */}
                 <a
-                  href={project.link}
+                  href={project.link.startsWith("/projects/") ? appPath(project.link) : project.link}
                   className="project-link"
                   target={project.link.startsWith("http") ? "_blank" : undefined}
                   rel={project.link.startsWith("http") ? "noopener noreferrer" : undefined}
