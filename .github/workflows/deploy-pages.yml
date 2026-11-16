@@ -15,7 +15,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  배포:
+  deploy:
+    name: 배포
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
