@@ -1,8 +1,10 @@
 import "../styles/ProjectDetail.css";
 
+const assetPath = (path) => `${import.meta.env.BASE_URL}${path}`;
+
 const projectDetails = {
   ssemlog: {
-    title: "Ssemlog", type: "SIDE PROJECT", period: "진행 중", image: "/images/sideproject.png",
+    title: "Ssemlog", type: "SIDE PROJECT", period: "진행 중", image: assetPath("images/sideproject.png"),
     summary: "소비 기록과 월별 목표를 함께 관리하며 나만의 소비 흐름을 돌아볼 수 있는 서비스입니다.",
     overview: ["소비 내역을 기록하고 첨부 파일과 함께 관리할 수 있도록 설계했습니다.", "월별 목표와 실제 지출을 비교해 소비 현황과 초과 금액을 한눈에 확인할 수 있습니다."],
     features: [["소비 기록 관리", "소비 내역 등록·수정·삭제와 영수증 이미지·PDF 첨부를 지원합니다."], ["월별 소비 목표", "월별 목표액과 실제 지출을 비교하고 소비 상태를 요약합니다."], ["안전한 인증", "이메일·카카오 로그인과 JWT 기반 인증 흐름을 제공합니다."]],
@@ -16,7 +18,7 @@ const projectDetails = {
     resources: [["GitHub", "https://github.com/Side-projectTeam/sseumlog-backend"]],
   },
   "broadcast-groupware": {
-    title: "Broadcast Groupware", type: "FINAL PROJECT", period: "2025.08.01 — 2025.09.10", image: "/images/finalproject.png",
+    title: "Broadcast Groupware", type: "FINAL PROJECT", period: "2025.08.01 — 2025.09.10", image: assetPath("images/finalproject.png"),
     video: "https://drive.google.com/file/d/18Fea2qlCaUQ42ipuhO4cR2Zbb7ynFV4I/preview",
     summary: "방송국 구성원의 일정, 시설 예약, 근태, 전자결재와 소통을 한곳에서 관리하는 사내 그룹웨어입니다.",
     overview: ["캘린더, 예약, 근태, 게시판, 전자결재 등 분산된 내부 업무를 웹에서 통합 관리합니다.", "관리자와 직원 역할을 분리하고 실시간 채팅과 알림을 더해 업무 흐름을 끊기지 않게 설계했습니다."],
@@ -31,7 +33,7 @@ const projectDetails = {
     resources: [["GitHub", "https://github.com/kjojk91/Broadcast-Groupware"], ["ERD", "https://www.erdcloud.com/d/885HpyDu2DsreRWr8"], ["WBS", "https://docs.google.com/spreadsheets/d/1nq_2JE1Glr-NHnPQepheWDQer0huWSuSwJrtRJHRLis/edit?gid=458429680#gid=458429680"], ["요구사항 정의서", "https://docs.google.com/spreadsheets/d/1NVzBaICrkpvecXyAXfLW_jw8Wl_FaJOsl7uvMSYpYas/edit?gid=2120964424#gid=2120964424"]],
   },
   lms: {
-    title: "Academy LMS", type: "SEMI PROJECT", period: "2025.06.01 — 2025.06.23", image: "/images/semiproject.png",
+    title: "Academy LMS", type: "SEMI PROJECT", period: "2025.06.01 — 2025.06.23", image: assetPath("images/semiproject.png"),
     video: "https://drive.google.com/file/d/1bXyyAeNW3Sewl07TG7X1L5YBOTYRstxF/preview",
     summary: "학생, 강사, 관리자의 역할에 맞춰 학원 운영 업무를 통합 관리하는 학습 관리 시스템입니다.",
     overview: ["국비지원 코딩 학원을 바탕으로 강의, 출결, 시험, 성적과 자료 관리를 웹으로 통합했습니다.", "학생·강사·관리자별 역할 기반 기능을 제공해 학원 운영 흐름을 효율적으로 관리할 수 있도록 구현했습니다."],

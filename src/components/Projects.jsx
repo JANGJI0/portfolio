@@ -1,6 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import "../styles/Projects.css";
 
+const assetPath = (path) => `${import.meta.env.BASE_URL}${path}`;
+
 function Projects({ onNavigate }) {
 
   /*
@@ -15,7 +17,7 @@ function Projects({ onNavigate }) {
       id: 1,
       title: "Ssemlog",
       description: "소비관리를 위한 어플",
-      image: "/images/sideproject.png",
+      image: assetPath("images/sideproject.png"),
       skills: ["Spring Boot", "MyBatis"],
       features: [
         "소비 내역 등록·수정·삭제와 영수증 이미지·PDF 첨부",
@@ -29,7 +31,7 @@ function Projects({ onNavigate }) {
       id: 2,
       title: "Broadcast Groupware",
       description: "방송국 내부 업무 효율화를 위한 그룹웨어",
-      image: "/images/finalproject.png",
+      image: assetPath("images/finalproject.png"),
       skills: ["Spring Boot", "MyBatis", "WebSocket"],
       features: [
         "캘린더와 시설·장비 예약을 한 화면에서 관리",
@@ -44,7 +46,7 @@ function Projects({ onNavigate }) {
       id: 3,
       title: "LMS",
       description: "학생과 강사를 위한 학습 관리 시스템",
-      image: "/images/semiproject.png",
+      image: assetPath("images/semiproject.png"),
       skills: ["Java", "JSP", "MyBatis"],
       features: [
         "강의 개설과 수강 신청을 역할별로 관리",
