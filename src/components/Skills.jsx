@@ -1,6 +1,8 @@
 
 import "../styles/Skills.css";
 
+const assetPath = (path) => `${import.meta.env.BASE_URL}${path}`;
+
 /*
   스킬 데이터
 
@@ -35,7 +37,7 @@ const skillCategories = [
       },
       {
         name: "MyBatis",
-        icon: "/icons/MyBatis.png",
+        icon: assetPath("icons/MyBatis.png"),
       },
     ],
   },
