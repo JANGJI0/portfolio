@@ -103,4 +103,6 @@
   .logo { font-size: 20px; }
   .nav { gap: 20px; }
   .nav button { font-size: 14px; }
+  .header-detail .nav { gap: 10px; }
+  .header-detail .nav button { font-size: 12px; }
 }

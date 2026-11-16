@@ -6,7 +6,12 @@ import Header from "./Header";
 import Hero from "./Hero";
 import Projects from "./Projects";
 import Skills from "./Skills";
+import About from "./About";
 import ProjectDetail from "./ProjectDetail";
+
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+const toAppPath = (path) => `${basePath}${path}`;
+const getRoutePath = () => window.location.pathname.replace(basePath, "") || "/";
 
 function App() {
   /*
@@ -16,7 +21,8 @@ function App() {
     1 = 최종 크기
   */
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [path, setPath] = useState(window.location.pathname);
+  const [path, setPath] = useState(getRoutePath);
+  const [pendingSection, setPendingSection] = useState(null);
 
 
   /*
@@ -44,7 +50,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const handlePopState = () => setPath(window.location.pathname);
+    const handlePopState = () => setPath(getRoutePath());
 
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
@@ -72,16 +78,41 @@ function App() {
     return () => observer.disconnect();
   }, [path]);
 
-  const navigate = (nextPath) => {
-    window.history.pushState({}, "", nextPath);
+  useEffect(() => {
+    if (!pendingSection || path !== "/") return undefined;
+
+    const animationFrameId = window.requestAnimationFrame(() => {
+      if (pendingSection === "main") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        const target = document.getElementById(pendingSection);
+
+        if (target) {
+          const headerOffset = 96;
+          const targetTop = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+
+          window.scrollTo({ top: targetTop, behavior: "smooth" });
+        }
+      }
+
+      setPendingSection(null);
+    });
+
+    return () => window.cancelAnimationFrame(animationFrameId);
+  }, [path, pendingSection]);
+
+  const navigate = (nextPath, sectionId = null) => {
+    window.history.pushState({}, "", toAppPath(nextPath));
     setPath(nextPath);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setPendingSection(sectionId);
+
+    if (!sectionId) window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const projectId = path.match(/^\/projects\/(ssemlog|broadcast-groupware|lms)$/)?.[1];
 
   if (projectId) {
-    return <ProjectDetail projectId={projectId} onBack={() => navigate("/")} />;
+    return <ProjectDetail projectId={projectId} onSectionNavigate={(sectionId) => navigate("/", sectionId)} />;
   }
 
   return (
@@ -90,7 +121,7 @@ function App() {
       <Header compact={scrollProgress > 0.82} />
 
       {/* 비디오 영역 */}
-      <Hero scrollProgress={scrollProgress} />
+      <Hero scrollProgress={scrollProgress} onNavigate={navigate} />
 
       {/* 프로젝트 영역 */}
       <Projects onNavigate={navigate} />
@@ -98,9 +129,8 @@ function App() {
       {/* 스킬 영역 */}
       <Skills />
 
-      
-      <main className="content-inner">
-      </main>
+      {/* 소개 영역 */}
+      <About />
     </>
   );
 }

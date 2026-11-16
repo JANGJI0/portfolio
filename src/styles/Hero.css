@@ -1,28 +1,5 @@
-/* =========================
-   Hero 스크롤 영역
-   ========================= */
-
 .hero-scroll-area {
-  /* 삼성 메인처럼 상단 비주얼 아래에 다음 본문이 바로 이어진다. */
   height: 900px;
-}
-
-/* =========================
-   Hero 영역
-   ========================= */
-
-.hero {
-  /*
-    처음에는 화면 전체 폭, 축소가 끝나면
-    본문과 동일한 max-width 1440px / 좌우 40px 규칙을 적용한다.
-  */
-  width: calc(100% - ((100% - min(1440px, calc(100% - 80px))) * var(--hero-progress)));
-  height: 100%;
-  max-width: none;
-  box-sizing: border-box;
-  border-radius: 0;
-  overflow: hidden;
-  transition: width 80ms linear;
 }
 
 .hero-sticky {
@@ -31,46 +8,340 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
 }
 
-/* =========================
-   비디오 영역
-   ========================= */
+.hero {
+  width: calc(100% - ((100% - min(1440px, calc(100% - 80px))) * var(--hero-progress)));
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: width 80ms linear;
+}
 
-.hero-placeholder {
+.hero-project {
+  position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+  background-color: #edf2f5;
+  animation: hero-project-enter 0.7s ease both;
+}
 
-  background:
-    radial-gradient(circle at 75% 22%, rgba(255, 255, 255, 0.85), transparent 22%),
-    linear-gradient(125deg, #d8eef9, #8ecdf2 56%, #4d8eb7);
-
+.hero-project-copy {
+  position: relative;
+  z-index: 2;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  width: 52%;
+  height: 100%;
+  padding: 80px clamp(40px, 8vw, 150px);
+  box-sizing: border-box;
+}
 
-  font-size: 24px;
-  font-weight: 600;
-  color: #17222c;
-  letter-spacing: 0.16em;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.25);
+.hero-project h1 {
+  max-width: 580px;
+  margin: 0;
+  color: #303030;
+  font-family: "Pretendard", sans-serif;
+  font-weight: 700;
+  font-size: clamp(42px, 5vw, 80px);
+  line-height: 1.05;
+  letter-spacing: -0.07em;
+  white-space: pre-line;
+  word-break: keep-all;
+}
+
+.hero-project-description {
+  max-width: 450px;
+  margin: 30px 0 0;
+  color: #555555;
+  font-size: 17px;
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+.hero-project-link {
+  width: fit-content;
+  margin-top: 28px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #303030;
+  color: #303030;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.hero-project-link:focus-visible {
+  outline: 2px solid #8ecdf2;
+  outline-offset: 5px;
+}
+
+.hero-project-visual {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 56%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-project-visual::before {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  content: "";
+  background: linear-gradient(90deg, #edf2f5 0%, rgba(237, 242, 245, 0.92) 12%, rgba(237, 242, 245, 0) 42%);
+}
+
+.hero-project-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-project-visual-ssemlog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #edf2f5;
+}
+
+.hero-ssemlog-row {
+  position: relative;
+  width: 104%;
+  height: 100%;
+  margin-left: -2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 1.4vw, 22px);
+}
+
+.hero-ssemlog-row .hero-ssemlog-screen {
+  position: static;
+  width: 19.5%;
+  height: auto;
+  max-height: 76%;
+  flex: 0 0 auto;
+  object-fit: contain;
+  border-radius: 14px;
+  box-shadow: 0 16px 32px rgba(45, 45, 80, 0.16);
+}
+
+.hero-ssemlog-screen-3 {
+  width: 22.5%;
+  max-height: 84%;
+}
+
+.hero-project-visual-ssemlog::before {
+  pointer-events: none;
+  background: linear-gradient(90deg, #edf2f5 0%, rgba(237, 242, 245, 0.88) 12%, rgba(237, 242, 245, 0) 38%);
+}
+
+.hero-project-screens {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-project-screens img {
+  position: absolute;
+  width: 32%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 18px;
+  box-shadow: 0 24px 48px rgba(45, 45, 80, 0.2);
+}
+
+.hero-project-screens img:nth-child(1) {
+  top: 25%;
+  left: 2%;
+  width: 22%;
+}
+
+.hero-project-screens img:nth-child(2) {
+  top: 2%;
+  left: 28%;
+  width: 22%;
+  z-index: 1;
+}
+
+.hero-project-screens img:nth-child(3) {
+  top: 8%;
+  left: 37%;
+  width: 27%;
+  z-index: 2;
+}
+
+.hero-project-screens img:nth-child(4) {
+  bottom: 1%;
+  left: 28%;
+  width: 22%;
+  z-index: 1;
+}
+
+.hero-project-screens img:nth-child(5) {
+  top: 38%;
+  right: 2%;
+  left: auto;
+  width: 22%;
+}
+
+.hero-project-visual-ssemlog .hero-project-screens img {
+  width: 17%;
+  height: auto;
+  border-radius: 14px;
+  filter: none;
+}
+
+.hero-project-visual-ssemlog .hero-project-screens img:nth-child(3) {
+  width: 21%;
+}
+
+.hero-project-screens img,
+.hero-project-screens img:nth-child(1),
+.hero-project-screens img:nth-child(2),
+.hero-project-screens img:nth-child(3),
+.hero-project-screens img:nth-child(4),
+.hero-project-screens img:nth-child(5) {
+  transform: rotate(30deg);
+}
+
+
+.hero-project-indicator {
+  position: absolute;
+  z-index: 3;
+  left: clamp(40px, 8vw, 150px);
+  bottom: 48px;
+  width: 94px;
+}
+
+.hero-project-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.hero-project-indicator button {
+  position: relative;
+  overflow: hidden;
+  width: 26px;
+  height: 2px;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  background-color: rgba(48, 48, 48, 0.28);
+}
+
+.hero-project-indicator button:focus-visible {
+  outline: 2px solid #303030;
+  outline-offset: 5px;
+}
+
+.hero-project-indicator button.is-active {
+  background-color: #303030;
+}
+
+.hero-project-progress {
+  width: 100%;
+  height: 2px;
+  margin-top: 10px;
+  overflow: hidden;
+  background-color: rgba(48, 48, 48, 0.2);
+}
+
+.hero-project-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background-color: #303030;
+  animation: hero-slide-progress 10s linear forwards;
+}
+
+@keyframes hero-project-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes hero-slide-progress {
+  from { width: 0; }
+  to { width: 100%; }
 }
 
 @media (max-width: 767px) {
-  .hero-scroll-area {
-    height: 100vh;
-  }
-
+  .hero-scroll-area,
   .hero-sticky {
-    height: 100vh;
+    height: 760px;
   }
 
   .hero {
     width: calc(100% - ((100% - calc(100% - 32px)) * var(--hero-progress)));
   }
 
-  .hero-placeholder {
-    font-size: 16px;
+  .hero-project-copy {
+    justify-content: flex-start;
+    width: 100%;
+    height: 62%;
+    padding: 120px 28px 40px;
+  }
+
+  .hero-project h1 {
+    font-size: clamp(40px, 12vw, 56px);
+  }
+
+  .hero-project-description {
+    margin-top: 20px;
+    font-size: 15px;
+  }
+
+  .hero-project-visual {
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: 45%;
+  }
+
+  .hero-project-visual::before {
+    background: linear-gradient(180deg, #edf2f5 0%, rgba(237, 242, 245, 0) 40%);
+  }
+
+  .hero-ssemlog-row {
+    width: 106%;
+    margin-left: -3%;
+    gap: 8px;
+  }
+
+  .hero-ssemlog-row .hero-ssemlog-screen {
+    width: 20%;
+    max-height: 86%;
+    border-radius: 7px;
+  }
+
+  .hero-ssemlog-screen-3 {
+    width: 23%;
+  }
+
+  .hero-project-visual-ssemlog::before {
+    background: linear-gradient(180deg, #edf2f5 0%, rgba(237, 242, 245, 0) 30%);
+  }
+
+  .hero-project-screens {
+    overflow: hidden;
+  }
+
+  .hero-project-screens img {
+    width: 37%;
+    border-radius: 10px;
+  }
+
+  .hero-project-visual-ssemlog .hero-project-screens img {
+    width: 37%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .hero-project-indicator {
+    left: 28px;
+    bottom: 24px;
   }
 }
