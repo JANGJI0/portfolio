@@ -1,0 +1,76 @@
+/* =========================
+   Hero 스크롤 영역
+   ========================= */
+
+.hero-scroll-area {
+  /* 삼성 메인처럼 상단 비주얼 아래에 다음 본문이 바로 이어진다. */
+  height: 900px;
+}
+
+/* =========================
+   Hero 영역
+   ========================= */
+
+.hero {
+  /*
+    처음에는 화면 전체 폭, 축소가 끝나면
+    본문과 동일한 max-width 1440px / 좌우 40px 규칙을 적용한다.
+  */
+  width: calc(100% - ((100% - min(1440px, calc(100% - 80px))) * var(--hero-progress)));
+  height: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  border-radius: 0;
+  overflow: hidden;
+  transition: width 80ms linear;
+}
+
+.hero-sticky {
+  position: relative;
+  height: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* =========================
+   비디오 영역
+   ========================= */
+
+.hero-placeholder {
+  width: 100%;
+  height: 100%;
+
+  background:
+    radial-gradient(circle at 75% 22%, rgba(255, 255, 255, 0.85), transparent 22%),
+    linear-gradient(125deg, #d8eef9, #8ecdf2 56%, #4d8eb7);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 24px;
+  font-weight: 600;
+  color: #17222c;
+  letter-spacing: 0.16em;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 767px) {
+  .hero-scroll-area {
+    height: 100vh;
+  }
+
+  .hero-sticky {
+    height: 100vh;
+  }
+
+  .hero {
+    width: calc(100% - ((100% - calc(100% - 32px)) * var(--hero-progress)));
+  }
+
+  .hero-placeholder {
+    font-size: 16px;
+  }
+}
