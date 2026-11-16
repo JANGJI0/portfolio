@@ -1,0 +1,771 @@
+/* =========================
+   프로젝트 전체 영역
+   ========================= */
+
+.project-section {
+  /*
+    헤더와 같은 좌우 여백을 사용한다.
+
+    화면 크기가 작아지면
+    프로젝트 영역도 함께 줄어든다.
+  */
+  width: calc(100% - 80px);
+  max-width: 1440px;
+  /* 스킬 섹션과 동일한 30px 간격으로 히어로 아래에 배치한다. */
+  margin: 30px auto 0;
+}
+
+.project-section[data-reveal] {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.project-section[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-section.is-visible .project-card {
+  animation: reveal-card 0.55s ease both;
+}
+
+.project-section.is-visible .project-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.project-section.is-visible .project-card:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+@keyframes reveal-card {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+/* =========================
+   프로젝트 메인 타이틀
+   ========================= */
+
+.project-main-title {
+  /*
+    뒤쪽 테두리 글자의 기준 위치
+  */
+  position: relative;
+  display: inline-block;
+
+  /*
+    아래쪽 20px 여백
+
+    프로젝트 제목과
+    프로젝트 카드 사이 간격
+  */
+  margin: 0 0 20px;
+
+  /* 스킬 제목과 동일한 글자 스타일 */
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -2px;
+
+  /* 파스텔 블루 */
+  color: #8ECDF2;
+
+  font-family: "Arial Black", "Pretendard", sans-serif;
+  text-transform: uppercase;
+
+  z-index: 1;
+}
+
+/* =========================
+   뒤쪽 테두리 글자
+   ========================= */
+
+.project-main-title::after {
+  /*
+    data-text에 작성한 PROJECTS를
+    뒤쪽에 한 번 더 표시
+  */
+  content: attr(data-text);
+
+  position: absolute;
+
+  /* 원본 글자에서 오른쪽 아래로 2px 이동 */
+  left: 2px;
+  top: 2px;
+
+  color: #ffffff;
+
+  /* 파스텔 블루 테두리 */
+  -webkit-text-stroke: 0.7px #79BCE8;
+
+  /* 앞쪽 글자와 동일한 폰트 적용 */
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-transform: inherit;
+
+  /* 원본 글자 뒤쪽에 배치 */
+  z-index: -1;
+}
+
+/* =========================
+   모바일 제목 크기
+   ========================= */
+
+@media (max-width: 600px) {
+  .project-main-title {
+    font-size: 26px;
+  }
+}
+
+
+
+/* =========================
+   슬라이더 전체 영역
+   ========================= */
+
+.project-slider-wrap {
+  /*
+    좌우 버튼의 위치를
+    슬라이더 영역을 기준으로 설정한다.
+  */
+  position: relative;
+}
+
+
+/* =========================
+   프로젝트 카드 목록
+   ========================= */
+
+.project-slider {
+  /*
+    카드들을 가로 방향으로 나열한다.
+  */
+  display: flex;
+
+  gap: 24px;
+
+  /*
+    영역보다 카드가 많으면
+    가로로 스크롤할 수 있게 한다.
+  */
+  overflow-x: auto;
+
+  /*
+    카드 한 장씩 위치가 맞춰지도록 한다.
+  */
+  scroll-snap-type: x mandatory;
+
+  /*
+    부드럽게 스크롤한다.
+  */
+  scroll-behavior: smooth;
+
+  /*
+    스크롤바 숨김
+  */
+  scrollbar-width: none;
+
+ /*
+  카드가 호버 시 5px 위로 이동하므로
+  위쪽과 아래쪽에 충분한 여백을 준다.
+
+  슬라이더는 가로 스크롤 구조이기 때문에
+  그림자가 가장자리에서 일부 잘릴 수 있다.
+  */
+  padding: 8px 0 24px;
+}
+
+.project-slider::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* =========================
+   프로젝트 카드
+   ========================= */
+
+.project-card {
+  /*
+    PC에서는 카드 3개가 한 화면에 표시된다.
+    기존 반응형 너비 계산 유지
+  */
+  flex: 0 0 calc((100% - 48px) / 3);
+
+  /*
+    카드 높이는 콘텐츠에 맞춰 늘어나며,
+    최소 420px을 유지한다.
+  */
+  min-height: 420px;
+
+  display: flex;
+  flex-direction: column;
+
+  /*
+    흰색에 가까운 배경으로 변경해
+    그림자가 더 자연스럽게 보이도록 한다.
+  */
+  background-color: #ffffff;
+
+  /* 영상 영역과 맞춰 직사각형 모서리를 사용한다. */
+  border-radius: 0;
+
+  /*
+    얇은 테두리로 카드 경계를 구분한다.
+  */
+  border: 1px solid #eaeaea;
+
+  /*
+    입체감을 만드는 핵심 부분
+
+    첫 번째 그림자 → 카드 바로 아래의 부드러운 그림자
+    두 번째 그림자 → 넓고 은은하게 퍼지는 그림자
+  */
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.04),
+    0 12px 28px rgba(0, 0, 0, 0.06);
+
+  /*
+    카드 안의 이미지가 둥근 모서리를
+    벗어나지 않도록 한다.
+  */
+  overflow: hidden;
+
+  box-sizing: border-box;
+
+  /*
+    마우스를 올렸을 때
+    움직임과 그림자 변화가 부드럽게 나타난다.
+  */
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+
+/* =========================
+   카드 마우스 호버
+   ========================= */
+
+@media (hover: hover) {
+
+  .project-card:hover {
+    /*
+      카드를 위로 5px 이동시킨다.
+      → 공중에 살짝 떠 있는 느낌
+    */
+    transform: translateY(-5px);
+
+    /*
+      카드가 위로 떠오를 때
+      그림자도 조금 더 진하고 넓어진다.
+    */
+    box-shadow:
+      0 8px 20px rgba(0, 0, 0, 0.07),
+      0 20px 40px rgba(0, 0, 0, 0.09);
+
+    border-color: #dedede;
+  }
+}
+
+
+/* =========================
+   프로젝트 이미지
+   ========================= */
+
+.project-image {
+  width: 100%;
+
+  /*
+    가로:세로 비율을 16:10으로 유지한다.
+
+    카드 너비가 바뀌면
+    이미지 높이도 비율에 맞게 바뀐다.
+  */
+  aspect-ratio: 16 / 10;
+
+  background-color: #dddddd;
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+
+  /*
+    이미지 비율을 유지하면서
+    이미지 영역을 채운다.
+
+    비율이 다른 이미지는
+    가장자리가 일부 잘릴 수 있다.
+  */
+  object-fit: cover;
+
+  display: block;
+}
+
+
+/* =========================
+   프로젝트 설명
+   ========================= */
+
+.project-content {
+  /*
+    이미지 아래쪽에 설명을 세로로 배치한다.
+  */
+  display: flex;
+  flex-direction: column;
+
+  /*
+    남은 공간을 설명 영역이 채운다.
+  */
+  flex: 1;
+
+  padding: 24px;
+  min-width: 0;
+
+  /* 이미지 아래 설명 영역은 부드러운 파스텔 그레이로 구분한다. */
+  background-color: #f1f3f5;
+}
+
+.project-card h3 {
+  margin: 0 0 12px;
+
+  /*
+    기존 24px 제목을 유지한다.
+  */
+  font-size: 24px;
+  font-weight: 700;
+
+  text-align: left;
+}
+
+.project-description {
+  margin: 0 0 20px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #000000;
+}
+
+
+/* =========================
+   기술 스택 태그
+   ========================= */
+
+.project-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin-bottom: 20px;
+}
+
+.project-skills span {
+  padding: 6px 10px;
+
+  /* 프로젝트 기술 태그는 섹션 제목과 같은 파스텔 블루를 사용한다. */
+  background-color: #b8dff3;
+  border-radius: 6px;
+
+  font-size: 12px;
+  color: #444444;
+}
+
+/* =========================
+   핵심 기능
+   ========================= */
+
+.project-features {
+  margin: 0 0 20px;
+}
+
+.project-features p {
+  margin: 0 0 8px;
+  color: #000000;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.project-features ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project-features li {
+  position: relative;
+  padding-left: 12px;
+  color: #000000;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.project-features li::before {
+  content: "-";
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #000000;
+}
+
+
+/* =========================
+   더 알아보기 링크
+   ========================= */
+
+.project-link {
+  /*
+    카드의 나머지 공간이 있으면
+    링크가 아래쪽에 배치된다.
+  */
+  margin-top: auto;
+
+  /* 밑줄 위치의 기준점 */
+  position: relative;
+
+  /* 글자 너비만큼만 영역 차지 */
+  align-self: flex-start;
+  width: fit-content;
+
+  color: #222222;
+  font-size: 14px;
+  font-weight: 600;
+
+  /* 기본 밑줄 제거 */
+  text-decoration: none;
+
+  /* 글자와 밑줄 사이 간격 */
+  padding-bottom: 5px;
+}
+
+/* =========================
+   기본 밑줄
+   ========================= */
+
+.project-link::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  /* 글자 너비만큼 밑줄 생성 */
+  width: 100%;
+  height: 1px;
+
+  background-color: #222222;
+}
+
+/* =========================
+   호버 애니메이션 밑줄
+   ========================= */
+
+.project-link::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  /* 처음에는 밑줄이 없는 상태 */
+  width: 0;
+  height: 1px;
+
+  background-color: #222222;
+
+  /* 밑줄이 왼쪽에서 오른쪽으로 그려짐 */
+  transition: width 0.4s ease;
+}
+
+/* =========================
+   마우스를 올렸을 때
+   ========================= */
+
+.project-link:hover::before {
+  /* 기존 밑줄 숨기기 */
+  opacity: 0;
+}
+
+.project-link:hover::after {
+  /* 새로운 밑줄이 왼쪽 → 오른쪽으로 생성 */
+  width: 100%;
+}
+
+
+/* =========================
+   좌우 화살표
+   ========================= */
+
+.slider-button {
+  /*
+    슬라이더 카드 위에 버튼을 겹쳐 배치한다.
+
+    기준은 기존 .project-slider-wrap의
+    position: relative이다.
+  */
+  position: absolute;
+
+  /*
+    카드 영역의 세로 중앙에 배치한다.
+  */
+  top: 50%;
+
+  /*
+    자신의 높이 절반만큼 위로 이동해
+    정확하게 세로 중앙을 맞춘다.
+  */
+  transform: translateY(-50%);
+
+  /* 프로젝트 카드보다 위에 표시 */
+  z-index: 10;
+
+  /*
+    삼성 이미지처럼 작은 원형 버튼
+  */
+  width: 40px;
+  height: 40px;
+
+  /* 원형 모양 */
+  border-radius: 50%;
+
+  /* 얇은 회색 테두리 */
+  border: 1px solid #dddddd;
+
+  /* 흰색 배경 */
+  background-color: #ffffff;
+
+  /*
+    버튼 내부의 화살표를
+    가로·세로 가운데 정렬
+  */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* 마우스를 올리면 손가락 모양 */
+  cursor: pointer;
+
+  /* 기존 그림자는 제거 */
+  box-shadow: none;
+
+  /* 마우스 호버 시 부드럽게 변경 */
+  transition: background-color 0.2s ease;
+}
+
+
+/* =========================
+   왼쪽 버튼 위치
+   ========================= */
+
+.slider-button.left {
+  /*
+    첫 번째로 보이는 프로젝트 카드의
+    왼쪽에서 16px 안쪽에 배치
+  */
+  left: 16px;
+}
+
+
+/* =========================
+   오른쪽 버튼 위치
+   ========================= */
+
+.slider-button.right {
+  /*
+    마지막으로 보이는 프로젝트 카드의
+    오른쪽에서 16px 안쪽에 배치
+  */
+  right: 16px;
+}
+
+
+/* =========================
+   화살표 모양
+   ========================= */
+
+.arrow-left,
+.arrow-right {
+  /*
+    CSS로 화살표를 직접 만든다.
+
+    width, height는 화살표 크기
+  */
+  width: 10px;
+  height: 10px;
+
+  /*
+    오른쪽과 아래쪽에만 선을 그려
+    꺾인 화살표 모양을 만든다.
+  */
+  border-right: 1.5px solid #222222;
+  border-bottom: 1.5px solid #222222;
+}
+
+
+/* 왼쪽 화살표 */
+.arrow-left {
+  transform: rotate(135deg);
+  margin-left: 4px;
+}
+
+
+/* 오른쪽 화살표 */
+.arrow-right {
+  transform: rotate(-45deg);
+  margin-right: 4px;
+}
+
+/* =========================
+   모바일 화살표
+   ========================= */
+
+@media (max-width: 767px) {
+
+  /*
+    모바일에서도 버튼 크기는 유지하고
+    카드 안쪽 여백만 줄인다.
+  */
+  .slider-button.left {
+    left: 12px;
+  }
+
+  .slider-button.right {
+    right: 12px;
+  }
+}
+
+
+/* =========================
+   태블릿 (1024px 이하)
+   ========================= */
+
+@media (max-width: 1024px) {
+
+  .project-section {
+    width: calc(100% - 48px);
+  }
+
+  .project-slider {
+    gap: 20px;
+  }
+
+  .project-card {
+    /*
+      태블릿에서는 2개씩 표시
+
+      카드 간격이 20px이므로
+      전체 너비에서 20px을 제외하고 2등분한다.
+    */
+    flex-basis: calc((100% - 20px) / 2);
+  }
+}
+
+
+/* =========================
+   모바일 (767px 이하)
+   ========================= */
+
+@media (max-width: 767px) {
+
+  .project-section {
+    width: calc(100% - 32px);
+  }
+
+  .project-slider {
+    gap: 16px;
+  }
+
+  .project-card {
+    /*
+      모바일에서는 한 번에 1개씩 표시
+    */
+    flex-basis: 100%;
+  }
+}
+
+/* =========================
+   프로젝트 제목 + GitHub 아이콘
+   ========================= */
+
+.project-heading {
+  /*
+    제목과 GitHub 아이콘을 가로로 배치
+  */
+  display: flex;
+
+  /*
+    왼쪽부터 순서대로 배치한다.
+    제목 바로 뒤에 GitHub 아이콘이 위치한다.
+  */
+  justify-content: flex-start;
+
+  /* 제목과 아이콘의 세로 중앙 정렬 */
+  align-items: center;
+
+  /*
+    제목과 아이콘 사이 간격
+    기존 12px → 8px
+  */
+  gap: 8px;
+
+  margin-bottom: 12px;
+}
+
+.project-heading h3 {
+  /*
+    기존 h3의 아래쪽 여백을 제거한다.
+
+    부모 .project-heading에서
+    여백을 관리하기 때문이다.
+  */
+  margin: 0;
+
+  /* 긴 제목도 줄바꿈되도록 설정 */
+  min-width: 0;
+}
+
+/* GitHub 아이콘 링크 */
+.project-github {
+  /*
+    아이콘 크기를 고정해
+    제목이 길어도 찌그러지지 않도록 한다.
+  */
+  flex-shrink: 0;
+
+  width: 36px;
+  height: 36px;
+
+  /* 원형 버튼 */
+  border-radius: 50%;
+
+  /* 아이콘 가운데 정렬 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* 기본 색상 */
+  color: #222222;
+
+  /* 링크 밑줄 제거 */
+  text-decoration: none;
+
+  /* 마우스 호버 효과 */
+  transition: background-color 0.2s ease;
+}
+
+/* GitHub 아이콘에 마우스를 올렸을 때 */
+.project-github:hover {
+  background-color: #e8e8e8;
+}
+
+/* 키보드로 선택했을 때도 구분 가능 */
+.project-github:focus-visible {
+  outline: 2px solid #222222;
+  outline-offset: 2px;
+}
